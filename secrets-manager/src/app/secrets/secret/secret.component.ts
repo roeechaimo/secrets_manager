@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { SecretsService } from "src/app/services/secrets.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Secret } from "src/app/core/models/secret.model";
 
 @Component({
   selector: "app-secret",
@@ -8,8 +9,7 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./secret.component.scss"]
 })
 export class SecretComponent implements OnInit {
-  // TODO - type Secret
-  public secret: any;
+  public secret: Secret;
   public errorMessage: String =
     "There are no secret details because this is a fake server";
 
@@ -30,10 +30,8 @@ export class SecretComponent implements OnInit {
   private getSecret() {
     this._route.params.subscribe(params => {
       const { id } = params;
-      this._secretsService.get(id).subscribe(response => {
-        const res = response;
-        this.secret = res;
-        console.log(res);
+      this._secretsService.get(id).subscribe((response: Secret) => {
+        this.secret = response;
       });
     });
   }

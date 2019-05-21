@@ -11,10 +11,9 @@ import { MatDialog } from "@angular/material/dialog";
   styleUrls: ["./secrets.component.scss"]
 })
 export class SecretsComponent implements OnInit {
-  // TODO - type secret
-  public secrets: any;
+  public secrets: Secret[];
   public dataSource: Secret[];
-  public displayedColumns: String[] = ["id", "name", "text", "createdAt"];
+  public displayedColumns: String[] = ["id", "name", "createdAt"];
 
   constructor(
     private _secretsService: SecretsService,
@@ -28,9 +27,8 @@ export class SecretsComponent implements OnInit {
   }
 
   private getSecrets() {
-    this._secretsService.get().subscribe(response => {
-      const res = response;
-      this.secrets = res;
+    this._secretsService.get().subscribe((response: Secret[]) => {
+      this.secrets = response;
       this.dataSource = this.secrets;
     });
   }

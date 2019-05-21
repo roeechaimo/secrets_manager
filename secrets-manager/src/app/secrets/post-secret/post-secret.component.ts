@@ -52,14 +52,18 @@ export class PostSecretComponent implements OnInit {
   private initForm() {
     this.form = this._fb.group({
       name: ["", [Validators.required]],
-      text: ["", [Validators.required]],
+      text: [
+        "",
+        [Validators.required, Validators.minLength(6), Validators.maxLength(10)]
+      ],
       allowExport: [true, []]
     });
   }
 
   private initFormErrors() {
     this.errors = {
-      required: "This field is required"
+      required: "This field is required",
+      text: "Your password must contain 6-10 characters"
     };
   }
 }
